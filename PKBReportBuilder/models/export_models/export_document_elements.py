@@ -52,17 +52,32 @@ class ExportElementStyle():
 #export document cell
 class ExportDocumentElementCell():
     #constrcutor
-    def __init__(self):
+    def __init__(self,navigate_param):
         try:
 
-            self.value_attribute = ""
-            pass
+            self.value_attribute = navigate_param.value_attribute
+            self.path = navigate_param.path
+            self.convert_types = []
+            for convert_type in navigate_param.convert_types:
+                self.convert_types.append(ExportCellValueConvert(convert_type))
+
+            self.style = navigate_param.style
+            self.value =''
+
         except Exception as e:
             logging.error("Error initialization. " + str(e))
 
     #set cell value
-    def set_cell_value(self):
+    def set_cell_value(self,value):
         try:
+
+            #convert methods
+
+
+            self.value =value
+
+
+
             pass
         except Exception as e:
             logging.error("Error initialization. " + str(e))
@@ -126,30 +141,40 @@ class ExportDocumentElementTable():
 #export document element
 class ExportDocumentElement():
     #constructor
-    def __init__(self,type_id, name, title):
+    def __init__(self,type_id, name, title=""):
         try:
             self.type = ExportDocumentElementTypesCollection(type_id)
             self.name = name
             self.title  = title
             self.table =None
             self.row = None
+            self.include_in_report =True
             pass
         except Exception as e:
             logging.error("Error initialization. "+str(e))
             pass
 
     #init element table
-    def init_element_table(self):
+    def init_element_table(self, navigate_params):
         try:
+            for navigate_param in navigate_params:
+                pass
             pass
         except Exception as e:
             logging.error("Error initialization. " + str(e))
 
 
     #init element row
-    def init_element_row(self, source_path,):
+    def init_element_row(self, navigate_params):
         try:
-            # ['path','get name',convert]
+
+            self.row = ExportDocumentElementRow()
+
+            for navigate_param in navigate_params:
+                self.row.cells.append(
+                    ExportDocumentElementCell(navigate_param)
+                )
+
             pass
         except Exception as e:
             logging.error("Error initialization. " + str(e))

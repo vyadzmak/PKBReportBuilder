@@ -54,7 +54,7 @@ build_code_file_name = "build_code.json"
 build_code_file_full_path = ""
 
 #test parse file
-test_parse_file_name = "77873.xml"
+test_parse_file_name = "78477.xml"
 
 #test parse file full path
 test_parse_file_full_path = ""

@@ -4,13 +4,17 @@ import models.settings.config as config
 import modules.xml_parser.xml_parser as xml_parser
 import datetime
 import logging
-
+import models.export_models.export_styles as styles
 
 # init system settings
 def init_system():
     try:
         # init config
         config.init_config()
+
+        #init styles
+        styles.init_styles()
+
     except Exception as e:
         logging.error("Crash init system procedure. " + str(e))
 

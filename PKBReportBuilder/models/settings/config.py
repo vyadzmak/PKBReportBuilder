@@ -13,11 +13,17 @@ logs_dir_full_path =""
 #logs dir name
 logs_dir_name ="logs"
 
-#logs dir full path
+#configs dir full path
 configs_dir_full_path =""
 
-#logs dir name
+#configs dir name
 configs_dir_name ="configs"
+
+#data dir full path
+data_dir_full_path =""
+
+#data dir name
+data_dir_name ="data"
 
 # engine version code
 version_code = "0.1"
@@ -46,6 +52,12 @@ build_code_file_name = "build_code.json"
 
 #logging config file full pat
 build_code_file_full_path = ""
+
+#test parse file
+test_parse_file_name = "77873.xml"
+
+#test parse file full path
+test_parse_file_full_path = ""
 
 # all versions
 versions_container = [
@@ -133,6 +145,11 @@ def config_paths():
         global logs_dir_full_path
         logs_dir_full_path = join_path([root_dir,logs_dir_name])
 
+        global data_dir_full_path
+        data_dir_full_path = join_path([root_dir, data_dir_name])
+
+        global test_parse_file_full_path
+        test_parse_file_full_path = join_path([data_dir_full_path,test_parse_file_name])
         t=0
         pass
     except Exception as e:

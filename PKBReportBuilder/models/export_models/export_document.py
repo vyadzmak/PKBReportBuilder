@@ -3,6 +3,7 @@ import models.export_models.export_document_elements as export_document_models
 import models.tree_models.xml_navigator as xml_navigator
 import models.export_models.export_styles as styles
 
+
 # export  document
 class ExportDocument():
     # constructor
@@ -21,9 +22,9 @@ class ExportDocument():
             navigate_params = params[2]
             element = export_document_models.ExportDocumentElement(type, name)
 
-            if (type==0):
+            if (type == 0):
                 element.init_element_row(navigate_params)
-            elif (type==1):
+            elif (type == 1):
                 element.init_element_table(navigate_params)
 
             self.export_elements.append(element)
@@ -32,15 +33,17 @@ class ExportDocument():
         except Exception as e:
             logging.error("Error initialization. " + str(e))
 
-    # init document schemas elements
-    def init_document_elements(self):
+    #init single field elements
+    def init_document_field_elements(self):
         try:
             params = [
                 # преступники
                 [
                     0, 'MvdCriminalInvestigations', [
                     xml_navigator.XmlNavigator(
-                        ['Result', 'Root', 'PublicSources', 'MvdCriminalInvestigations'],
+                        [
+                            ['Result', 'Root', 'PublicSources', 'MvdCriminalInvestigations']
+                        ],
                         'title',
                         [0],
                         styles.row_title_style
@@ -57,13 +60,17 @@ class ExportDocument():
                 [
                     0, 'MvdMissingInvestigations', [
                     xml_navigator.XmlNavigator(
-                        ['Result', 'Root', 'PublicSources', 'MvdMissingInvestigations'],
+                        [
+                            ['Result', 'Root', 'PublicSources', 'MvdMissingInvestigations']
+                        ],
                         'title',
                         [0],
                         styles.row_title_style
                     ),
                     xml_navigator.XmlNavigator(
-                        ['Result', 'Root', 'PublicSources', 'MvdMissingInvestigations', 'Status'],
+                        [
+                            ['Result', 'Root', 'PublicSources', 'MvdMissingInvestigations', 'Status']
+                        ],
                         'value',
                         [0],
                         styles.row_title_style
@@ -74,13 +81,17 @@ class ExportDocument():
                 [
                     0, 'TerrorList', [
                     xml_navigator.XmlNavigator(
-                        ['Result', 'Root', 'PublicSources', 'TerrorList'],
+                        [
+                            ['Result', 'Root', 'PublicSources', 'TerrorList']
+                        ],
                         'title',
                         [0],
                         styles.row_title_style
                     ),
                     xml_navigator.XmlNavigator(
-                        ['Result', 'Root', 'PublicSources', 'TerrorList', 'Status'],
+                        [
+                            ['Result', 'Root', 'PublicSources', 'TerrorList', 'Status']
+                        ],
                         'value',
                         [0],
                         styles.row_title_style
@@ -91,13 +102,17 @@ class ExportDocument():
                 [
                     0, 'Areears', [
                     xml_navigator.XmlNavigator(
-                        ['Result', 'Root', 'PublicSources', 'Areears'],
+                        [
+                            ['Result', 'Root', 'PublicSources', 'Areears']
+                        ],
                         'title',
                         [0],
                         styles.row_title_style
                     ),
                     xml_navigator.XmlNavigator(
-                        ['Result', 'Root', 'PublicSources', 'Areears', 'Status'],
+                        [
+                            ['Result', 'Root', 'PublicSources', 'Areears', 'Status']
+                        ],
                         'value',
                         [0],
                         styles.row_title_style
@@ -108,13 +123,17 @@ class ExportDocument():
                 [
                     0, 'FalseBusi', [
                     xml_navigator.XmlNavigator(
-                        ['Result', 'Root', 'PublicSources', 'FalseBusi'],
+                        [
+                            ['Result', 'Root', 'PublicSources', 'FalseBusi']
+                        ],
                         'title',
                         [0],
                         styles.row_title_style
                     ),
                     xml_navigator.XmlNavigator(
-                        ['Result', 'Root', 'PublicSources', 'FalseBusi', 'Status'],
+                        [
+                            ['Result', 'Root', 'PublicSources', 'FalseBusi', 'Status']
+                        ],
                         'value',
                         [0],
                         styles.row_title_style
@@ -125,13 +144,17 @@ class ExportDocument():
                 [
                     0, 'Bankruptcy', [
                     xml_navigator.XmlNavigator(
-                        ['Result', 'Root', 'PublicSources', 'Bankruptcy'],
+                        [
+                            ['Result', 'Root', 'PublicSources', 'Bankruptcy']
+                        ],
                         'title',
                         [0],
                         styles.row_title_style
                     ),
                     xml_navigator.XmlNavigator(
-                        ['Result', 'Root', 'PublicSources', 'Bankruptcy', 'Status'],
+                        [
+                            ['Result', 'Root', 'PublicSources', 'Bankruptcy', 'Status']
+                        ],
                         'value',
                         [0],
                         styles.row_title_style
@@ -142,13 +165,17 @@ class ExportDocument():
                 [
                     0, 'RNUGosZakup', [
                     xml_navigator.XmlNavigator(
-                        ['Result', 'Root', 'PublicSources', 'RNUGosZakup'],
+                        [
+                            ['Result', 'Root', 'PublicSources', 'RNUGosZakup']
+                        ],
                         'title',
                         [0],
                         styles.row_title_style
                     ),
                     xml_navigator.XmlNavigator(
-                        ['Result', 'Root', 'PublicSources', 'RNUGosZakup', 'Status'],
+                        [
+                            ['Result', 'Root', 'PublicSources', 'RNUGosZakup', 'Status']
+                        ],
                         'value',
                         [0],
                         styles.row_title_style
@@ -159,13 +186,17 @@ class ExportDocument():
                 [
                     0, 'QamqorList', [
                     xml_navigator.XmlNavigator(
-                        ['Result', 'Root', 'PublicSources', 'QamqorList'],
+                        [
+                            ['Result', 'Root', 'PublicSources', 'QamqorList']
+                        ],
                         'title',
                         [0],
                         styles.row_title_style
                     ),
                     xml_navigator.XmlNavigator(
-                        ['Result', 'Root', 'PublicSources', 'QamqorList', 'Status'],
+                        [
+                            ['Result', 'Root', 'PublicSources', 'QamqorList', 'Status']
+                        ],
                         'value',
                         [0],
                         styles.row_title_style
@@ -176,13 +207,17 @@ class ExportDocument():
                 [
                     0, 'QamqorAlimony', [
                     xml_navigator.XmlNavigator(
-                        ['Result', 'Root', 'PublicSources', 'QamqorAlimony'],
+                        [
+                            ['Result', 'Root', 'PublicSources', 'QamqorAlimony']
+                        ],
                         'title',
                         [0],
                         styles.row_title_style
                     ),
                     xml_navigator.XmlNavigator(
-                        ['Result', 'Root', 'PublicSources', 'QamqorAlimony', 'Status'],
+                        [
+                            ['Result', 'Root', 'PublicSources', 'QamqorAlimony', 'Status']
+                        ],
                         'value',
                         [0],
                         styles.row_title_style
@@ -193,13 +228,49 @@ class ExportDocument():
                 [
                     0, 'KgdWanted', [
                     xml_navigator.XmlNavigator(
-                        ['Result', 'Root', 'PublicSources', 'KgdWanted'],
+                        [
+                            ['Result', 'Root', 'PublicSources', 'KgdWanted']
+                        ],
                         'title',
                         [0],
                         styles.row_title_style
                     ),
                     xml_navigator.XmlNavigator(
-                        ['Result', 'Root', 'PublicSources', 'KgdWanted', 'Status'],
+                        [
+                            ['Result', 'Root', 'PublicSources', 'KgdWanted', 'Status']
+                        ]
+                        ,
+                        'value',
+                        [0],
+                        styles.row_title_style
+                    )
+                ]
+                ]
+            ]
+
+            return params
+        except Exception as e:
+            logging.error("Error initialization. " + str(e))
+
+    def init_document_table_elements(self):
+        try:
+            params =[
+
+                # действующие договора
+                [
+                    1, 'ExistingContracts', [
+                    xml_navigator.XmlNavigator(
+                        [
+                            ['Result', 'Root', 'ExistingContracts', 'Contract']
+                        ],
+                        'title',
+                        [0],
+                        styles.row_title_style
+                    ),
+                    xml_navigator.XmlNavigator(
+                        [
+                            ['Result', 'Root', 'PublicSources', 'KgdWanted', 'Status']
+                        ],
                         'value',
                         [0],
                         styles.row_title_style
@@ -207,8 +278,25 @@ class ExportDocument():
                 ]
                 ],
             ]
+            pass
+        except Exception as e:
+            logging.error("Error initialization. " + str(e))
 
-            for param in params:
+
+    # init document schemas elements
+    def init_document_elements(self):
+        try:
+
+
+
+            #generate field params
+            field_element_params =self.init_document_field_elements()
+            for param in field_element_params:
+                self.add_export_element(param)
+
+            #generate table params
+            field_element_params = self.init_document_field_elements()
+            for param in field_element_params:
                 self.add_export_element(param)
 
             pass

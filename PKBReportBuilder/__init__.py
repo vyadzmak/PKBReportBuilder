@@ -22,6 +22,7 @@ def init_system():
 # entry point project
 if __name__ == '__main__':
     try:
+        result =""
         t = datetime.datetime.now()
         start_time = datetime.datetime.now()
         init_system()

@@ -59,6 +59,18 @@ test_parse_file_name = "78477.xml"
 #test parse file full path
 test_parse_file_full_path = ""
 
+#configs dir full path
+exports_dir_full_path =""
+
+#configs dir name
+exports_dir_name ="exports"
+
+#export json file full path
+export_json_file_full_path = ""
+
+#export json file name
+export_json_file_name = "data.json"
+
 # all versions
 versions_container = [
     ["0.1", "Leonardo"],
@@ -150,6 +162,13 @@ def config_paths():
 
         global test_parse_file_full_path
         test_parse_file_full_path = join_path([data_dir_full_path,test_parse_file_name])
+
+        global exports_dir_full_path
+        exports_dir_full_path = join_path([root_dir, exports_dir_name])
+
+        global export_json_file_full_path
+        export_json_file_full_path = join_path([exports_dir_full_path, export_json_file_name])
+
         t=0
         pass
     except Exception as e:

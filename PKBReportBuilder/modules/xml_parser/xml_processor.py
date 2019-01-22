@@ -18,12 +18,19 @@ def recursive_navigate(node, paths, index):
 #process cell
 def process_cell(root, cell):
     try:
+        cell_value = ""
+        index =0
+        for path in cell.paths:
+            node = recursive_navigate(root,path,0)
+            if (node==None):
+                return None
+            value = node.get(cell.value_attribute)
+            cell_value+=value
+            if (index<len(cell.paths)-1):
+                cell_value+='\n'
+            index+=1
 
-        node = recursive_navigate(root,cell.path,0)
-        if (node==None):
-            return None
-        value = node.get(cell.value_attribute)
-        cell.set_cell_value(value)
+        cell.set_cell_value(cell_value)
         return cell
 
     except Exception as e:

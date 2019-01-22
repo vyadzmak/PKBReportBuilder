@@ -1,8 +1,8 @@
 import json
 import uuid
 class ExportDocumentReportCellContent():
-    def __init__(self,projectId,data,bgc="#ffffff",color="#000000",ta="left",fz="10",fm="",fw="normal",fs="normal",u="",ff="arial",width=50,id=-1,analytical=False, month=-1,year=-1, document_type=-1, analytical_type=-1, period=-1,row=-1, show_grid=False, analysis_type=0,contains_data=False):
-        self.projectId = projectId
+    def __init__(self,data,bgc="#ffffff",color="#000000",ta="left",fz="10",fm="",fw="normal",fs="normal",u="",ff="arial",width=50,id=-1,row=-1, show_grid=False, contains_data=False):
+
         self.width = width
         self.data = data
         self.bgc = bgc
@@ -14,15 +14,7 @@ class ExportDocumentReportCellContent():
         self.fs = fs
         self.u = u
         self.ff = ff
-        self.onCellMouseMoveFn = "CELL_FOCUS_CALLBACK_FN"
         self.id = id
-        self.analysis_type = analysis_type
-        self.analytical = analytical
-        self.month = month
-        self.year = year
-        self.document_type = document_type
-        self.analytical_type = analytical_type
-        self.period = str(period)
         self.uid = str(uuid.uuid4())[:8]
         if (show_grid and contains_data==False):
             self.bls = 'solid'
@@ -108,3 +100,7 @@ class ExportDocumentReportModel():
 
     def add_cell(self):
         pass
+
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)

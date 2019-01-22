@@ -5,6 +5,8 @@ import logging
 class ExportDocumentElementTypesCollection(Enum):
     ROW = 0
     TABLE =1
+    STATIC_ROW = 2
+    EMPTY_ROW = 3
 
 #convert value type
 class ExportCellValueConvert(Enum):
@@ -56,7 +58,12 @@ class ExportDocumentElementCell():
         try:
 
             self.value_attribute = navigate_param.value_attribute
-            self.path = navigate_param.path
+            self.paths = []
+            for path in navigate_param.paths:
+                self.paths.append(path)
+
+
+
             self.convert_types = []
             for convert_type in navigate_param.convert_types:
                 self.convert_types.append(ExportCellValueConvert(convert_type))

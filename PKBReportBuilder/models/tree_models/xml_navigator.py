@@ -19,7 +19,7 @@ class XmlNavigatorAdditionalParams():
 #xml tree navigator
 class XmlNavigator():
     #constructor
-    def __init__(self,paths,value_attribute, convert_types, style,additional_params):
+    def __init__(self,paths,value_attribute, convert_types, style,additional_params=None):
         try:
             self.paths = paths
             self.value_attribute = value_attribute

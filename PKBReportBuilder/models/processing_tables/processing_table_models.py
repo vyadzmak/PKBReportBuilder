@@ -34,6 +34,11 @@ class OutputValueTypesCollection(Enum):
     MONEY_FORMAT = 2
     THOUSAND_FORMAT = 3
 
+#extract value types
+class ExtractValueTypesCollection(Enum):
+    SINGLE =0
+    JOIN_VALUE =1
+    JOIN_LIST =2
 
 # condition value
 class ConditionValue():
@@ -81,10 +86,25 @@ class ProcessingTableCell():
             self.value = ""
             self.column = column
             self.index = column.index
-
-            pass
         except Exception as e:
             logging.error("Error initialization. " + str(e))
+
+    # convert value
+    def convert_value(self, value):
+        try:
+            return value
+        except Exception as e:
+            logging.error("Error convert cell value. " + str(e))
+
+    # set value
+    def set_value(self, value):
+        try:
+            if (self.column.output_value_type.value != 1):
+                value = self.convert_value(value)
+            else:
+                self.value = value
+        except Exception as e:
+            logging.error("Error set value to cell. " + str(e))
 
 
 # processing table row
@@ -110,24 +130,16 @@ class ProcessingTableRow():
 # processing table header
 class ProcessingTableColumn():
     # constructor
-    def __init__(self, index, title, name, value_data_type_index, value_paths, value_attribute, title_paths="",
-                 title_attribute=""):
+    def __init__(self, index, title, name,value_paths,value_attribute_name, condition,extract_value_type,extra_table_field=False):
         try:
             self.title = title
             self.name = name
             self.index = index
-            self.value_paths = value_paths
-            self.value_data_type = ValueDataTypesCollection(value_data_type_index)
-
-            self.alt_value_check = None
-            self.alt_value_paths = None
-            self.condition_value = None
-
-            self.value_attribute = None
-            self.conditions = None
-            self.value_type = None
-
-
+            self.value_paths =value_paths
+            self.value_attribute_name = value_attribute_name
+            self.extract_value_type =extract_value_type
+            self.condition = condition
+            self.extra_table_field = extra_table_field
         except Exception as e:
             logging.error("Error initialization. " + str(e))
 
@@ -135,9 +147,11 @@ class ProcessingTableColumn():
 # class processing table, for complex analyse
 class ProcessingTable():
     # constructor
-    def __init__(self, title):
+    def __init__(self, title,show_title=True):
         try:
-            self.title = ""
+            self.title = title
+            self.show_title = show_title
+            # self.root_path = root_path
             self.columns = []
             self.rows = []
             self.group_rows = []
@@ -146,12 +160,10 @@ class ProcessingTable():
             logging.error("Error initialization. " + str(e))
 
     # init single column
-    def init_column(self, title, name, value_data_type_index, value_paths, value_attribute, title_paths="",
-                    title_attribute=""):
+    def init_column(self, title, name, value_paths,value_attribute_name,condition,extract_value_type,extra_table_field=False):
         try:
             column_index = len(self.columns) + 1
-            column = ProcessingTableColumn(column_index, title, name, value_data_type_index, value_paths,
-                                           value_attribute, title_paths=title_paths, title_attribute=title_attribute)
+            column = ProcessingTableColumn(column_index, title, name,value_paths,value_attribute_name, condition,extract_value_type,extra_table_field)
             self.columns.append(column)
 
         except Exception as e:

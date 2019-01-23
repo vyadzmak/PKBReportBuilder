@@ -11,6 +11,7 @@ class ExportDocument():
         try:
             # export elements
             self.export_elements = []
+            self.xml_documents = []
         except Exception as e:
             logging.error("Error initialization. " + str(e))
 

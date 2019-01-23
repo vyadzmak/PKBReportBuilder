@@ -1,5 +1,5 @@
 import logging
-
+import modules.xml_parser.xml_table_processor as xml_table_processor
 #parse xml file
 def recursive_navigate(node, paths, index):
     try:
@@ -66,6 +66,8 @@ def process_document(root, document):
                 process_row(root,export_element)
             elif (type_id==1):
                 pass
+
+        xml_table_processor.process_table(root, document)
 
         pass
     except Exception as e:

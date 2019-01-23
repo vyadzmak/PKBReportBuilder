@@ -13,7 +13,7 @@ def parse_file(file_path):
         root = tree.getroot()
 
         document = export_document.ExportDocument()
-        document.xml_documents =init_document_tables.init_document_tables()
+        document.xml_document_tables =init_document_tables.init_document_tables(root)
         document.init_document_elements()
         xml_processor.process_document(root, document)
         result =document_converter.convert_document_to_sheet_format(document)

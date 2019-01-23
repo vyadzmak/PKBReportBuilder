@@ -11,7 +11,7 @@ class ExportDocument():
         try:
             # export elements
             self.export_elements = []
-            self.xml_documents = []
+            self.xml_document_tables = []
         except Exception as e:
             logging.error("Error initialization. " + str(e))
 
@@ -295,10 +295,10 @@ class ExportDocument():
             for param in field_element_params:
                 self.add_export_element(param)
 
-            #generate table params
-            field_element_params = self.init_document_field_elements()
-            for param in field_element_params:
-                self.add_export_element(param)
+            # #generate table params
+            # field_element_params = self.init_document_field_elements()
+            # for param in field_element_params:
+            #     self.add_export_element(param)
 
             pass
         except Exception as e:

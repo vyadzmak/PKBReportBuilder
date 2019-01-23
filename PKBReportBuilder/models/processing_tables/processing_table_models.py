@@ -30,9 +30,9 @@ class ConditionTypesCollection():
 class OutputValueTypesCollection(Enum):
     WITHOUT = 0
     ONLY_NUMBERS = 1
-    DATE = 1
-    MONEY_FORMAT = 2
-    THOUSAND_FORMAT = 3
+    DATE = 2
+    MONEY_FORMAT = 3
+    THOUSAND_FORMAT = 4
 
 
 # extract value types
@@ -62,8 +62,10 @@ class ConditionValue():
                  condition_logic,
                  # condition equal values array
                  condition_equal_values,
+                 #output value formats
+                 output_value_formats,
                  # is mulitple value or single
-                 is_mutiple_values=False):
+                 is_multiple_values=False):
         try:
 
             self.path_to_condition = path_to_condition
@@ -74,7 +76,8 @@ class ConditionValue():
             self.convert_value_type = convert_value_type
             self.condition_logic = condition_logic
             self.condition_equal_values = condition_equal_values
-            self.is_mutiple_values = is_mutiple_values
+            self.output_value_formats =output_value_formats
+            self.is_multiple_values = is_multiple_values
 
         except Exception as e:
             logging.error("Error initialization. " + str(e))
@@ -102,7 +105,7 @@ class ProcessingTableCell():
     def set_value(self, value):
         try:
             if (self.column.output_value_type.value != 1):
-                value = self.convert_value(value)
+                self.value = self.convert_value(value)
             else:
                 self.value = value
         except Exception as e:

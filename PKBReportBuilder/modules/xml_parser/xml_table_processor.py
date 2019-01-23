@@ -60,6 +60,7 @@ def process_table_rows(root,table,  xml_rows):
 
                 row.set_cell_value_by_index(column.index,value)
 
+        return
 
     except Exception as e:
         logging.error("Error. " + str(e))

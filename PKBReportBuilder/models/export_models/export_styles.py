@@ -14,6 +14,13 @@ def init_styles():
 
         global row_value_style
         row_value_style = ExportElementStyle()
+
+        global table_header_style
+        table_header_style = ExportElementStyle(fw="bold",bgc="#ff0000")
+
+        global table_rows_content_style
+        table_rows_content_style = ExportElementStyle()
+
         logging.info("Styles init successful")
     except Exception as e:
         logging.error("Error initialization. " + str(e))

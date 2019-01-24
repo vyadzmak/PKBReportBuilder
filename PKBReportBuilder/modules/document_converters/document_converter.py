@@ -9,7 +9,7 @@ def set_zero_row(document, sheet_id, widths):
 
         id = 1
         for width in widths:
-            json = export_document_report_model.ExportDocumentReportCellContent("", width=width)
+            json = export_document_report_model.ExportDocumentReportCellContent("", width=width,height =45)
             cell = export_document_report_model.ExportDocumentReportCell(sheet_id, 0, id, json)
             document.cells.append(cell)
             id += 1
@@ -17,6 +17,12 @@ def set_zero_row(document, sheet_id, widths):
 
     except Exception as e:
         logging.error("Error. " + str(e))
+
+def set_zero_column(document):
+        json = export_document_report_model.ExportDocumentReportCellContent("", height=45)
+        cell = export_document_report_model.ExportDocumentReportCell(1, 0, 0, json)
+        document.cells.append(cell)
+
 
 
 # get max width column
@@ -49,9 +55,9 @@ def get_max_width(export_document):
 
         widths = []
         for c in columns:
-            w = c * 8
-            if (w > 320):
-                w = 320
+            w = c * 6
+            if (w > 240):
+                w = 240
             widths.append(w)
 
         return widths
@@ -146,6 +152,7 @@ def init_document_cells(export_document, document):
 
         width_columns = get_max_width(export_document)
         set_zero_row(document, 1, width_columns)
+        set_zero_column(document)
         init_rows(export_document, document)
     except Exception as e:
         logging.error("Error. " + str(e))

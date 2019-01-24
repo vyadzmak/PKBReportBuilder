@@ -19,7 +19,7 @@ class ExportCellValueConvert(Enum):
 
 #export cell style
 class ExportElementStyle():
-    def __init__(self,bgc="#ffffff",color="#000000",ta="left",fz="10",fm="",fw="normal",fs="normal",u="",ff="arial",width=50,row=-1):
+    def __init__(self,bgc="#ffffff",color="#000000",ta="left",fz="8",fm="",fw="normal",fs="normal",u="",ff="arial",width=50,row=-1):
         try:
             self.width = width
             self.bgc = bgc
@@ -90,7 +90,7 @@ class ExportDocumentElementCell():
             logging.error("Error initialization. " + str(e))
 
     #set style to cell
-    def set_cell_style(self,bgc="#ffffff",color="#000000",ta="left",fz="10",fm="",fw="normal",fs="normal",u="",ff="arial",width=50,row=-1):
+    def set_cell_style(self,bgc="#ffffff",color="#000000",ta="left",fz="8",fm="",fw="normal",fs="normal",u="",ff="arial",width=50,row=-1):
         try:
             self.style = ExportElementStyle(bgc=bgc, color=color, ta=ta, fz=fz, fm=fm, fw=fw, fs=fs, u="", ff=ff,
                                             width=width, row=row)
@@ -121,13 +121,29 @@ class ExportDocumentElementRow():
         except Exception as e:
             logging.error("Error initialization. " + str(e))
 
-    #set row cells style
+
+
+    #set row cell styles
     def set_row_cells_style(self):
         try:
             for cell in self.cells:
                 cell.set_cell_style(self.style)
         except Exception as e:
                 logging.error("Error initialization. " + str(e))
+
+    #set init cells
+    def init_value_cells(self,navigate_params, values):
+        try:
+            for value in values:
+                self.cells.append(ExportDocumentElementCell(navigate_params))
+                last_cell = self.cells[len(self.cells)-1]
+                last_cell.set_cell_value(value)
+
+                pass
+
+            pass
+        except Exception as e:
+            logging.error("Error initialization. " + str(e))
 
 
 #export document element table

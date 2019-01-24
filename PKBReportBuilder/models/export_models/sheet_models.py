@@ -17,6 +17,7 @@ class CellJson():
         self.fs = fs
         self.u = u
         self.ff = ff
+        self.ww= 'break-word'
         if (row>0):
             self.bls = 'solid'
             self.brs = 'solid'

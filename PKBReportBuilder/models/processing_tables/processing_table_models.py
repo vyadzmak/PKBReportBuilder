@@ -163,7 +163,7 @@ class ProcessingTableColumn():
 # class processing table, for complex analyse
 class ProcessingTable():
     # constructor
-    def __init__(self, title, root_path, table_path, show_title=True):
+    def __init__(self, title, root_path, table_path, show_title=True,hidden_columns_in_groups=[]):
         try:
             self.title = title
             self.show_title = show_title
@@ -172,7 +172,7 @@ class ProcessingTable():
             self.columns = []
             self.rows = []
             self.group_rows = []
-            self.hidden_columns_in_groups = []
+            self.hidden_columns_in_groups = hidden_columns_in_groups
         except Exception as e:
             logging.error("Error initialization. " + str(e))
 

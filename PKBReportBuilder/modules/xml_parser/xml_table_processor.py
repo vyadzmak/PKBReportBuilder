@@ -1,5 +1,6 @@
 import logging
 import modules.xml_parser.xml_table_processor_helpers as xml_helpers
+import modules.group_data_modules.group_table_data as group_table_data
 
 #parse xml file
 def recursive_navigate(node, paths, index):
@@ -76,6 +77,7 @@ def process_table(root, document):
             xml_table_body_node = recursive_node_navigate(root,paths,0)
             xml_table_body_rows = extract_all_items_from_node(xml_table_body_node,last_element)
             process_table_rows(root, table,xml_table_body_rows)
+            group_table_data.group_data_table(table)
         return None
     except Exception as e:
         logging.error("Error. " + str(e))

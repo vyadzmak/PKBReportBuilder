@@ -7,7 +7,9 @@ def init_existing_contracts_table(root):
     try:
 
         table_path = ['Result', 'Root', 'ExistingContracts', 'Contract']
-        table = processing_table_models.ProcessingTable("Действующие договора", root, table_path)
+        table = processing_table_models.ProcessingTable("Действующие договора", root, table_path,
+                                                        hidden_columns_in_groups=["Name", "SubjectRole",
+                                                                                  "FinancialInstitution"])
 
         # column Наименование Заемщика/гаранта/ созаемщика
         table.init_column("Наименование Заемщика/гаранта/созаемщика", "Name",
@@ -88,7 +90,9 @@ def init_existing_contracts_table(root):
         table.init_column("Лимит/ Общая сумма кредита (тыс. тенге)", "TotalAmount",
                           [
                               [
-                                  ['TotalAmount'],
+                                  ['CreditLimit'],
+                                  ['TotalAmount']
+
                               ]
 
                           ], 'value',
@@ -110,7 +114,33 @@ def init_existing_contracts_table(root):
                           processing_table_models.ExtractValueTypesCollection(2), False
                           )
 
-        # column Лимит/ Общая сумма кредита (тыс. тенге)
+        # column Наименование Заемщика/гаранта/ созаемщика (тыс. тенге)
+        table.init_column("Наименование Заемщика/гаранта/ созаемщика (тыс. тенге)", "OutstandingAmount",
+                          [
+                              [
+                                  ['OutstandingAmount']
+
+                              ]
+
+                          ], 'value',
+                          processing_table_models.ConditionValue(None, None, None, 'value', None,
+                                                                 processing_table_models.ConvertTypesCollection(1),
+                                                                 None, None,
+                                                                 [
+                                                                     # only numbers
+                                                                     processing_table_models.OutputValueTypesCollection(
+                                                                         1),
+                                                                     # money format
+                                                                     processing_table_models.OutputValueTypesCollection(
+                                                                         3),
+                                                                     # thousand
+                                                                     processing_table_models.OutputValueTypesCollection(
+                                                                         4)
+                                                                 ],
+                                                                 False),
+                          processing_table_models.ExtractValueTypesCollection(2), False)
+
+        # column Сумма ежемесячного платежа, тыс. тенге
         table.init_column("Сумма ежемесячного платежа, тыс. тенге", "MonthlyInstalmentAmount",
                           [
                               [
@@ -400,7 +430,7 @@ def init_existing_contracts_table(root):
         table.init_column("Вид обеспечения", "TypeOfGuarantee",
                           [
                               [
-                                  ['Collateral','TypeOfGuarantee'],
+                                  ['Collateral', 'TypeOfGuarantee'],
                               ]
 
                           ], 'value',

@@ -1,8 +1,8 @@
 import logging
 import re
 import string
-
-
+import copy
+import datetime
 # parse xml file
 def recursive_navigate(node, paths, index):
     try:
@@ -51,28 +51,55 @@ def convert_str():
     except Exception as e:
         pass
 
-
+# convert output values
 def convert_output_values(formats, values):
     try:
 
-        for f in formats:
-            index =0
-            for value in values:
-                if (f.value == 1):
-                    # convert to float
-                    _value = re.sub('[^0-9.]', "", value.replace(",", "."))
-                    values[index]= float(_value)
-                    # value = parseStr(_value)
+        output_values = []
+        _value  =''
+        for value in values:
+            _value = copy.copy(value)
 
+            for f in formats:
+                index =0
+
+                #only numbers
+                if (f.value == 1):
+                    if (_value == ''):
+
+                        _value = '0'
+                    # convert to float
+                    _value = float(re.sub('[^0-9.]', "", _value.replace(",", ".")))
+
+                #date
+                if (f.value==2):
+                    pass
+                    # if (_value!=''):
+                    #     lst = str(_value).split(' ')
+                    #
+                    #     if (len(lst)>0):
+                    #         s_date = lst[0]
+                    #         if (s_date!=''):
+                    #             date = datetime.datetime.strptime(s_date,'dd.mm.yyyy')
+
+
+                #thousand div
                 if (f.value == 3):
-                    values[index] = round(value / 1000, 2)
+                    if (_value == ''):
+                        _value = 0
+                    _value = round(_value / 1000, 2)
 
                 index+=1
 
-            pass
+
+            output_values.append(_value)
+
+
+
+        pass
 
         t = 0
-
+        return output_values
     except Exception as e:
         logging.error("Error. " + str(e))
         return values
@@ -84,13 +111,13 @@ def extract_value_join(column, values):
         value = ''
         if (column.extract_value_type.value == 0):
             for v in values:
-                value += v
+                value += str(v)
 
             pass
         elif (column.extract_value_type.value == 1):
             index = 0
             for v in values:
-                value += v
+                value += str(v)
                 if (index < len(values) - 1):
                     value += ' '
                 index += 1
@@ -99,7 +126,7 @@ def extract_value_join(column, values):
         elif (column.extract_value_type.value == 2):
             index = 0
             for v in values:
-                value += v
+                value += str(v)
                 if (index < len(values) - 1):
                     value += '\n'
                 index += 1
@@ -210,7 +237,7 @@ def extract_data_from_table_row(xml_row, column):
                                 values.append(value)
 
             if (column.condition.output_value_formats != None and len(column.condition.output_value_formats) > 0):
-                convert_output_values(column.condition.output_value_formats, values)
+                values =convert_output_values(column.condition.output_value_formats, values)
                 pass
 
             # convertation if needed

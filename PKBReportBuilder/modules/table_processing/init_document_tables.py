@@ -90,9 +90,8 @@ def init_existing_contracts_table(root):
         table.init_column("Лимит/ Общая сумма кредита (тыс. тенге)", "TotalAmount",
                           [
                               [
-                                  ['CreditLimit'],
+                                  # ['CreditLimit'],
                                   ['TotalAmount']
-
                               ]
 
                           ], 'value',

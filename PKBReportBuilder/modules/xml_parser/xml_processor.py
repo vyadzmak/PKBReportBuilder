@@ -95,20 +95,61 @@ def add_element_to_document(document,style,values):
     except Exception as e:
         pass
 
+#check if row is empty
+def check_clean_row(row):
+    try:
+        for cell in row.cells:
+            if (cell.value!=''):
+                return False
+
+        return True
+        pass
+    except Exception as e:
+        logging.error("Error. " + str(e))
+        return True
+
+#clean empty rows
+def clean_empty_rows(document):
+    try:
+        clean_export_elements =[]
+
+        for export_element in document.export_elements:
+            if(check_clean_row(export_element.row)==False):
+                clean_export_elements.append(export_element)
+
+        document.export_elements = []
+        document.export_elements = clean_export_elements
+
+        t=0
+        pass
+
+    except Exception as e:
+        logging.error("Error. " + str(e))
+
+
+#generate group rows
+def generate_group_rows(document,table):
+    try:
+        elements_count = len(document.export_elements)
+
+        for group_row in table.group_rows:
+            n_group = [group_row[0]+elements_count,group_row[1]+elements_count]
+            document.group_rows.append(n_group)
+
+    except Exception as e:
+        logging.error("Error. " + str(e))
+
 #process table
 def process_table(document):
     try:
 
-
+        clean_empty_rows(document)
         for table in document.xml_document_tables:
-
+            generate_group_rows(document,table)
             add_element_to_document(document,export_styles.table_header_style,table.columns)
 
             for row in table.rows:
                 add_element_to_document(document, export_styles.table_rows_content_style, row.cells)
-
-
-
             pass
 
 

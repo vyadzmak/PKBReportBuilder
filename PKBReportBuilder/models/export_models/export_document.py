@@ -2,8 +2,6 @@ import logging
 import models.export_models.export_document_elements as export_document_models
 import models.tree_models.xml_navigator as xml_navigator
 import models.export_models.export_styles as styles
-
-
 # export  document
 class ExportDocument():
     # constructor
@@ -12,6 +10,7 @@ class ExportDocument():
             # export elements
             self.export_elements = []
             self.xml_document_tables = []
+            self.group_rows = []
         except Exception as e:
             logging.error("Error initialization. " + str(e))
 
@@ -29,8 +28,6 @@ class ExportDocument():
                 element.init_element_table(navigate_params)
 
             self.export_elements.append(element)
-
-
         except Exception as e:
             logging.error("Error initialization. " + str(e))
 
@@ -256,7 +253,6 @@ class ExportDocument():
     def init_document_table_elements(self):
         try:
             params =[
-
                 # действующие договора
                 [
                     1, 'ExistingContracts', [
@@ -287,19 +283,10 @@ class ExportDocument():
     # init document schemas elements
     def init_document_elements(self):
         try:
-
-
-
             #generate field params
             field_element_params =self.init_document_field_elements()
             for param in field_element_params:
                 self.add_export_element(param)
 
-            # #generate table params
-            # field_element_params = self.init_document_field_elements()
-            # for param in field_element_params:
-            #     self.add_export_element(param)
-
-            pass
         except Exception as e:
             logging.error("Error initialization. " + str(e))

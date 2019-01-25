@@ -11,10 +11,8 @@ def init_system():
     try:
         # init config
         config.init_config()
-
         #init styles
         styles.init_styles()
-
     except Exception as e:
         logging.error("Crash init system procedure. " + str(e))
 

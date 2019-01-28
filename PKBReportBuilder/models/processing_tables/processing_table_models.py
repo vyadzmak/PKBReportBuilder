@@ -143,6 +143,13 @@ class ProcessingTableRow():
         except Exception as e:
             logging.error("Error initialization. " + str(e))
 
+    #set cells styles
+    def set_cells_styles(self,style):
+        try:
+
+            pass
+        except Exception as e:
+            logging.error("Error initialization. " + str(e))
 
 # processing table header
 class ProcessingTableColumn():

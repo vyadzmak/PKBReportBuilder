@@ -50,7 +50,7 @@ class ExportDocument():
                         ['Result', 'Root', 'PublicSources', 'MvdCriminalInvestigations', 'Status'],
                         'value',
                         [0],
-                        styles.row_title_style
+                        styles.row_value_style
                     )
                 ]
                 ],
@@ -71,7 +71,7 @@ class ExportDocument():
                         ],
                         'value',
                         [0],
-                        styles.row_title_style
+                        styles.row_value_style
                     )
                 ]
                 ],
@@ -92,7 +92,7 @@ class ExportDocument():
                         ],
                         'value',
                         [0],
-                        styles.row_title_style
+                        styles.row_value_style
                     )
                 ]
                 ],
@@ -113,7 +113,7 @@ class ExportDocument():
                         ],
                         'value',
                         [0],
-                        styles.row_title_style
+                        styles.row_value_style
                     )
                 ]
                 ],
@@ -134,7 +134,7 @@ class ExportDocument():
                         ],
                         'value',
                         [0],
-                        styles.row_title_style
+                        styles.row_value_style
                     )
                 ]
                 ],
@@ -155,7 +155,7 @@ class ExportDocument():
                         ],
                         'value',
                         [0],
-                        styles.row_title_style
+                        styles.row_value_style
                     )
                 ]
                 ],
@@ -176,7 +176,7 @@ class ExportDocument():
                         ],
                         'value',
                         [0],
-                        styles.row_title_style
+                        styles.row_value_style
                     )
                 ]
                 ],
@@ -197,7 +197,7 @@ class ExportDocument():
                         ],
                         'value',
                         [0],
-                        styles.row_title_style
+                        styles.row_value_style
                     )
                 ]
                 ],
@@ -218,7 +218,7 @@ class ExportDocument():
                         ],
                         'value',
                         [0],
-                        styles.row_title_style
+                        styles.row_value_style
                     )
                 ]
                 ],
@@ -240,7 +240,7 @@ class ExportDocument():
                         ,
                         'value',
                         [0],
-                        styles.row_title_style
+                        styles.row_value_style
                     )
                 ]
                 ]

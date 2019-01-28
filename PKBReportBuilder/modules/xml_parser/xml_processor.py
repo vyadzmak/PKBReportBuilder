@@ -71,18 +71,25 @@ def add_element_to_document(document,style,values):
         document.add_export_element([0,'',navigate_params])
 
         last_element = document.export_elements[len(document.export_elements)-1]
+
+
         last_element.row.set_row_style(style.bgc,style.color,style.ta,style.fz,style.fm,style.fw,style.fs,style.u,style.ff)
 
         str_values =[]
 
-
-
         for value in values:
-            element_value = check_field(value,'title')
 
-            if (element_value==None):
-                element_value = check_field(value,'value')
+            is_str=type(value) is str
 
+            element_value=''
+            if (is_str==False):
+                element_value = check_field(value,'title')
+
+                if (element_value==None):
+                    element_value = check_field(value,'value')
+
+            else:
+                element_value = str(value)
 
             str_values.append(element_value)
 
@@ -133,7 +140,7 @@ def generate_group_rows(document,table):
         elements_count = len(document.export_elements)
 
         for group_row in table.group_rows:
-            n_group = [group_row[0]+elements_count,group_row[1]+elements_count]
+            n_group = [group_row[0]+elements_count+1,group_row[1]+elements_count+1]
             document.group_rows.append(n_group)
 
     except Exception as e:
@@ -144,13 +151,22 @@ def process_table(document):
     try:
 
         clean_empty_rows(document)
+        add_element_to_document(document, export_styles.row_title_style, [''])
+
         for table in document.xml_document_tables:
+            add_element_to_document(document, export_styles.row_title_style,[table.title])
+
             generate_group_rows(document,table)
             add_element_to_document(document,export_styles.table_header_style,table.columns)
 
             for row in table.rows:
-                add_element_to_document(document, export_styles.table_rows_content_style, row.cells)
+                if (row.is_root==False):
+                    add_element_to_document(document, export_styles.table_rows_content_style, row.cells)
+                else:
+                    add_element_to_document(document, export_styles.table_rows_root_content_style, row.cells)
             pass
+
+            add_element_to_document(document, export_styles.row_title_style,[''])
 
 
 

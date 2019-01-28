@@ -25,6 +25,8 @@ class ExportElementStyle():
     def __init__(self, bgc="#ffffff", color="#000000", ta="left", fz="8", fm="", fw="normal", fs="normal", u="",
                  ff="arial", width=50, row=-1):
         try:
+            if (bgc!='#ffffff'):
+                t=0
             self.width = width
             self.bgc = bgc
             self.color = color
@@ -88,6 +90,7 @@ class ExportDocumentElementCell():
     def set_cell_style(self, bgc="#ffffff", color="#000000", ta="left", fz="8", fm="", fw="normal", fs="normal", u="",
                        ff="arial", width=50, row=-1):
         try:
+
             self.style = ExportElementStyle(bgc=bgc, color=color, ta=ta, fz=fz, fm=fm, fw=fw, fs=fs, u="", ff=ff,
                                             width=width, row=row)
         except Exception as e:
@@ -118,7 +121,8 @@ class ExportDocumentElementRow():
     def set_row_cells_style(self):
         try:
             for cell in self.cells:
-                cell.set_cell_style(self.style)
+                cell.set_cell_style( bgc=self.style.bgc, color=self.style.color, ta=self.style.ta, fz=self.style.fz, fm=self.style.fm, fw=self.style.fw, fs=self.style.fs, u=self.style.u,
+                       ff=self.style.ff, width=self.style.width, row=-1)
         except Exception as e:
             logging.error("Error initialization. " + str(e))
 

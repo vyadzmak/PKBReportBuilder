@@ -6,7 +6,7 @@ import logging
 # content to export sheet cell
 class ExportDocumentReportCellContent():
     # constructor
-    def __init__(self, data, bgc="#ffffff", color="#000000", ta="left", fz="10", fm="", fw="normal", fs="normal", u="",
+    def __init__(self, data, bgc='#ffffff', color="#000000", ta="left", fz="10", fm="", fw="normal", fs="normal", u="",
                  ff="arial", width=50, id=-1, row=-1, show_grid=False, contains_data=False, height=30):
         try:
             self.width = width
@@ -41,7 +41,7 @@ class ExportDocumentReportCellContent():
             self.brt = 'solid'
             self.btt = 'solid'
             self.bbt = 'solid'
-            self.bgc = '#ffffff'
+            # self.bgc = bgc
         except Exception as e:
             logging.error("Error initialization. " + str(e))
 

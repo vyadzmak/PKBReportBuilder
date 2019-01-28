@@ -1,9 +1,11 @@
 import logging
 import copy
-
+import models.export_models.export_styles as export_styles
 # check if value is root element in
 def check_roots(values, value):
     try:
+        if (value==''):
+            return False
         for _value in values:
             if (str(_value) != str(value) and str(_value).startswith(value)):
                 return True
@@ -33,8 +35,10 @@ def get_to_single_contracts(b_values, roots):
 
         single_roots = []
         for b_value in b_values:
-            if (b_value[1] == False):
-                single_roots.append(b_value[0])
+            if (len(b_value)>1):
+                if (b_value[1] == False):
+                    if (b_value[0]!=''):
+                        single_roots.append(b_value[0])
         return single_roots
     except Exception as e:
         logging.error("Error. " + str(e))
@@ -103,12 +107,14 @@ def group_data_table(table):
                 break
             cell_index += 1
         for row in table.rows:
-            values.append(row.cells[cell_index].value)
+            if (row.cells[cell_index].value!=''):
+                values.append(row.cells[cell_index].value)
         values.sort()
         sort_rows = []
         for value in values:
             for row in table.rows:
                 if (str(row.cells[cell_index].value) == str(value)):
+
                     sort_rows.append(row)
                     continue
 
@@ -149,11 +155,13 @@ def group_data_table(table):
                         start_row_group_index = current_row_index
                         end_row_group_index = current_row_index
                         row.is_root = True
+                        # row.set_cells_styles(export_styles.table_rows_root_content_style)
                         row.group_id= current_group_id
 
                     sort_table.rows.append(row)
             if (start_row_group_index!=-1 and end_row_group_index!=-1):
-                sort_table.group_rows.append([start_row_group_index,end_row_group_index])
+                if (start_row_group_index!=end_row_group_index):
+                    sort_table.group_rows.append([start_row_group_index,end_row_group_index])
 
         calculate_root_elements(sort_table)
         table = copy.deepcopy(sort_table)

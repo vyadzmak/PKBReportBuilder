@@ -74,7 +74,7 @@ def init_row(document, row, row_index, show_grid):
             font_size = style.fz
             text_align = style.ta
 
-            font_weight = "normal"
+            font_weight = style.fw
             if (font_style == "bold"):
                 font_weight = "bold"
                 font_style = "normal"
@@ -91,6 +91,7 @@ def init_row(document, row, row_index, show_grid):
             # if (
             #                         content_type_id == 4 or content_type_id == 6 or content_type_id == 7 or content_type_id == 9 or content_type_id == 11 or content_type_id == 12):
             #     fm = "money||2|none"
+
             cell_content = export_document_report_model.ExportDocumentReportCellContent(
                 data=cell.value,
                 bgc=back_color,
@@ -154,10 +155,21 @@ def convert_document_to_sheet_format(export_document):
             document_report_model.add_sheet(id, sheet)
             id += 1
 
-        json_string = json.dumps(export_document.group_rows)
+        document_groups = []
+
+        for group_row in export_document.group_rows:
+            document_groups.append(export_document_report_model.ExportDocumentGroup(1,group_row))
+
+
+        # json_string = json.dumps(document_groups)
+
+        json_string = json.dumps([ob.__dict__ for ob in document_groups])
+
         json_string = json_string.replace("\"", '')
-        fl = export_document_report_model.ExportDocumentReportFloatings(1, "colGroups", "colgroup", json_string)
-        # document_report_model.floatings.append(fl)
+
+
+        fl = export_document_report_model.ExportDocumentReportFloatings(1, "rowGroups", "rowgroup", json_string)
+        document_report_model.floatings.append(fl)
 
         init_document_cells(export_document, document_report_model)
         return document_report_model.toJSON()

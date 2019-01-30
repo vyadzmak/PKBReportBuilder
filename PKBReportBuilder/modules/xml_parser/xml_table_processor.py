@@ -69,6 +69,8 @@ def process_table(root, document):
             xml_table_body_rows = extract_all_items_from_node(xml_table_body_node,last_element)
             process_table_rows(root, table,xml_table_body_rows)
             table = group_table_data.group_data_table(table)
+
+
             document.xml_document_tables[index] = table
 
             index+=1

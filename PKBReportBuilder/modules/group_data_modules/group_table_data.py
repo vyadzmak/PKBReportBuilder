@@ -1,6 +1,6 @@
 import logging
 import copy
-import models.export_models.export_styles as export_styles
+import modules.table_processing.not_classificated_records as not_classificated_records
 # check if value is root element in
 def check_roots(values, value):
     try:
@@ -9,9 +9,27 @@ def check_roots(values, value):
         for _value in values:
             if (str(_value) != str(value) and str(_value).startswith(value)):
                 return True
+
+        return False
     except Exception as e:
         logging.error("Error. " + str(e))
         return False
+
+    # check if value is root element in
+def check_result_roots(values, value):
+        try:
+
+            for _value in values:
+                if (_value!=value and str(value).startswith(_value)):
+                    return False
+
+
+            return True
+
+
+        except Exception as e:
+            logging.error("Error. " + str(e))
+            return False
 
 # get t contract roots
 def get_to_roots(values):
@@ -20,7 +38,15 @@ def get_to_roots(values):
         for value in values:
             if (check_roots(values, value) == True):
                 root_values.append(value)
-        return root_values
+        root_values.sort()
+        # return root_values
+        result_root_values = []
+        for root_value in root_values:
+            if (check_result_roots(root_values,root_value)==True):
+                result_root_values.append(root_value)
+
+        # #clean repea
+        return result_root_values
     except Exception as e:
         logging.error("Error. " + str(e))
         return values
@@ -98,6 +124,10 @@ def calculate_root_elements(table):
 # group data by aggreement number
 def group_data_table(table):
     try:
+        #clean table
+        # table, not_classificate_table = not_classificated_records.check_not_classificated_rows(table)
+
+
         column_name = 'AgreementNumber'
         values = []
         first_row = table.rows[0]
@@ -106,9 +136,16 @@ def group_data_table(table):
             if (cell.column.name == column_name):
                 break
             cell_index += 1
+
+        not_classificated_rows = []
+        index =0
         for row in table.rows:
             if (row.cells[cell_index].value!=''):
                 values.append(row.cells[cell_index].value)
+            else:
+                not_classificated_rows.append(row)
+
+
         values.sort()
         sort_rows = []
         for value in values:
@@ -126,11 +163,16 @@ def group_data_table(table):
 
         # check all child and root elements
         single_roots = get_to_single_contracts(b_values, roots)
+
+        single_roots, pseudo_roots = not_classificated_records.group_not_singled_roots(roots,single_roots)
+
         result_roots = roots + single_roots
         result_roots.sort()
         sort_table = copy.deepcopy(table)
         sort_table.rows = []
         current_group_id = -1
+
+
         for result_root in result_roots:
             current_group_id += 1
 
@@ -163,8 +205,45 @@ def group_data_table(table):
                 if (start_row_group_index!=end_row_group_index):
                     sort_table.group_rows.append([start_row_group_index,end_row_group_index])
 
+        ###########ДОРАБОТАТЬ АЛГОРИТМ ПО НЕ ПОЛНЫМ ГРУППАМ#####################################################
+        for result_root in pseudo_roots:
+            current_group_id += 1
+
+            current_row_index = 0
+            start_row_group_index = -1
+            end_row_group_index = -1
+
+            for row in table.rows:
+                current_row_index+=1
+                cell_value = row.cells[cell_index].value
+
+                if (str(cell_value) == str(result_root) or str(cell_value).startswith(str(result_root))):
+                    row.group_id = current_group_id
+
+                    if (str(cell_value) != str(result_root)):
+                        end_row_group_index = current_row_index
+
+                    else:
+                        start_row_group_index = current_row_index
+                        end_row_group_index = current_row_index
+                        row.is_root = True
+                        # row.set_cells_styles(export_styles.table_rows_root_content_style)
+                        row.group_id= current_group_id
+
+                    sort_table.rows.append(row)
+            if (start_row_group_index!=-1 and end_row_group_index!=-1):
+                if (start_row_group_index!=end_row_group_index):
+                    sort_table.group_rows.append([start_row_group_index,end_row_group_index])
+
         calculate_root_elements(sort_table)
+
+
         table = copy.deepcopy(sort_table)
+
+        for not_classificated_row in not_classificated_rows:
+            not_classificated_row.not_classificated =True
+            table.rows.append(not_classificated_row)
+
         return table
     except Exception as e:
         logging.error("Error. " + str(e))

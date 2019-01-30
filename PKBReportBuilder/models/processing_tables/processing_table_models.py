@@ -122,6 +122,7 @@ class ProcessingTableRow():
             self.cells = []
             self.is_root = False
             self.group_id =-1
+            self.not_classificated =False
         except Exception as e:
             logging.error("Error initialization. " + str(e))
 

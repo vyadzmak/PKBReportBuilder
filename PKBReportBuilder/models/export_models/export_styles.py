@@ -6,6 +6,7 @@ row_value_style = None
 table_header_style = None
 table_rows_content_style = None
 table_rows_root_content_style = None
+table_not_classificated_rows = None
 
 #init styles for export
 def init_styles():
@@ -24,6 +25,10 @@ def init_styles():
 
         global table_rows_root_content_style
         table_rows_root_content_style = ExportElementStyle(fw="bold",bgc="#e6f7ff")
+
+        global table_not_classificated_rows
+        table_not_classificated_rows = ExportElementStyle(fw="bold",bgc="#ffb3b3", fs="italic")
+
 
         logging.info("Styles init successful")
     except Exception as e:

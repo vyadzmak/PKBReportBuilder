@@ -160,6 +160,11 @@ def process_table(document):
             add_element_to_document(document,export_styles.table_header_style,table.columns)
 
             for row in table.rows:
+
+                if (row.not_classificated==True):
+                    add_element_to_document(document, export_styles.table_not_classificated_rows, row.cells)
+                    continue
+
                 if (row.is_root==False):
                     add_element_to_document(document, export_styles.table_rows_content_style, row.cells)
                 else:

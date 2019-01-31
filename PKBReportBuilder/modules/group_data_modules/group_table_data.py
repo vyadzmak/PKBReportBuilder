@@ -1,6 +1,7 @@
 import logging
 import copy
 import modules.table_processing.not_classificated_records as not_classificated_records
+import models.root_models.root_model as root_model
 # check if value is root element in
 def check_roots(values, value):
     try:
@@ -147,6 +148,9 @@ def group_data_table(table):
 
 
         values.sort()
+
+
+
         sort_rows = []
         for value in values:
             for row in table.rows:
@@ -154,6 +158,10 @@ def group_data_table(table):
 
                     sort_rows.append(row)
                     continue
+
+        root_models = []
+        for value in values:
+            root_models.append(root_model.RootModel(value))
 
         table.rows = sort_rows
         roots = get_to_roots(values)
@@ -220,7 +228,10 @@ def group_data_table(table):
                 if (str(cell_value) == str(result_root) or str(cell_value).startswith(str(result_root))):
                     row.group_id = current_group_id
 
-                    if (str(cell_value) != str(result_root)):
+                    if (str(cell_value) != str(
+
+
+                            result_root)):
                         end_row_group_index = current_row_index
 
                     else:

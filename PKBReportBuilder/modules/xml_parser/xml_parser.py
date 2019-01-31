@@ -5,10 +5,13 @@ import modules.document_converters.document_converter as document_converter
 import logging
 import modules.io_modues.io_module as io_module
 import modules.table_processing.init_document_tables as init_document_tables
-
+import modules.root_processor.root_processor as root_processor
 # parse physical file XML
 def parse_file(file_path):
     try:
+        root_processor.check_seq('MKO041-2015','MKO154-2018/1')
+
+
         tree = ET.parse(file_path)
         root = tree.getroot()
 

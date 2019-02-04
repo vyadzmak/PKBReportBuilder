@@ -9,9 +9,6 @@ import modules.root_processor.root_processor as root_processor
 # parse physical file XML
 def parse_file(file_path):
     try:
-        root_processor.check_seq('MKO041-2015','MKO154-2018/1')
-
-
         tree = ET.parse(file_path)
         root = tree.getroot()
 

@@ -871,7 +871,7 @@ def init_document_tables(root):
         tables = []
         existing_contracts_table = init_existing_contracts_table(root)
         terminated_contracts_table = init_terminated_contracts_table(root)
-        # tables.append(existing_contracts_table)
+        tables.append(existing_contracts_table)
         tables.append(terminated_contracts_table)
         return tables
     except Exception as e:

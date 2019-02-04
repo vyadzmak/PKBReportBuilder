@@ -137,6 +137,26 @@ def show_system_info():
     except Exception as e:
         pass
 
+# check single dir
+def check_single_dir(dir_path):
+        try:
+            dir_exists = os.path.exists(dir_path)
+
+            if (dir_exists == False):
+                os.mkdir(dir_path)
+                logging.info("Create directory " + dir_path)
+        except Exception as e:
+            logging.error(str(e))
+
+# check system dirs
+def check_dirs():
+        try:
+            check_single_dir(configs_dir_full_path)
+            check_single_dir(logs_dir_full_path)
+            check_single_dir(data_dir_full_path)
+            check_single_dir(exports_dir_full_path)
+        except Exception as e:
+            logging.error(str(e))
 
 # config system paths
 def config_paths():
